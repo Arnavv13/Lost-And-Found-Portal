@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lost & Found Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<section id="authScreen" class="auth-screen">
+  <div class="auth-card">
+
+    <div class="auth-mark">L&F</div>
+
+    <p class="eyebrow">LOST & FOUND PORTAL</p>
+    <h1 id="authTitle">Welcome back</h1>
+    <p class="auth-subtitle" id="authSubtitle">
+      Log in to access your Lost & Found account.
+    </p>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+
+      <label for="loginEmail">Email address</label>
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="loginPassword">Password</label>
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button type="submit" id="loginBtn">
+        Login
+      </button>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <button type="button" id="showRegisterBtn" class="text-btn">
+          Register
+        </button>
+      </p>
+    </form>
+
+    <!-- REGISTRATION FORM -->
+    <form id="registerForm" hidden>
+
+      <div class="name-row">
+        <div>
+          <label for="firstName">First name</label>
+          <input
+            id="firstName"
+            type="text"
+            placeholder="First name"
+            maxlength="40"
+            autocomplete="given-name"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="lastName">Last name</label>
+          <input
+            id="lastName"
+            type="text"
+            placeholder="Last name"
+            maxlength="40"
+            autocomplete="family-name"
+            required
+          >
+        </div>
+      </div>
+
+      <label for="registerEmail">Email address</label>
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+      <label for="phone">Phone number</label>
+      <input
+        id="phone"
+        type="tel"
+        placeholder="+91 9876543210"
+        maxlength="20"
+        autocomplete="tel"
+        required
+      >
+
+      <label for="registerPassword">Create password</label>
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Minimum 8 characters"
+        minlength="8"
+        maxlength="72"
+        autocomplete="new-password"
+        required
+      >
+
+      <label for="confirmPassword">Confirm password</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Re-enter password"
+        minlength="8"
+        maxlength="72"
+        autocomplete="new-password"
+        required
+      >
+
+      <button type="submit" id="registerBtn">
+        Register and send OTP
+      </button>
+
+      <p class="auth-switch">
+        Already have an account?
+        <button type="button" id="showLoginBtn" class="text-btn">
+          Login
+        </button>
+      </p>
+    </form>
+
+    <!-- OTP VERIFICATION -->
+    <form id="otpForm" hidden>
+
+      <label for="otpCode">Email verification code</label>
+
+      <input
+        id="otpCode"
+        type="text"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+        pattern="[0-9]{6}"
+        maxlength="6"
+        placeholder="Enter 6-digit OTP"
+        required
+      >
+
+      <p id="otpHint" class="auth-hint">
+        Check your email for the verification code.
+      </p>
+
+      <button type="submit" id="verifyOtpBtn">
+        Verify OTP and create account
+      </button>
+
+      <button
+        type="button"
+        id="backToRegisterBtn"
+        class="secondary-btn"
+      >
+        Back to registration
+      </button>
+    </form>
+
+    <p id="authMessage" class="auth-message" role="status"></p>
+
+    <p class="auth-footnote">
+      Your account details are securely stored in MongoDB.
+    </p>
+
+  </div>
+</section>
+
+
+<div id="appShell" hidden>
+  <header class="top">
+    <h1>Lost & Found</h1>
+    <p>Lost something? Found something? Post it here so it can get back home.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Report an item</h2>
+
+      <form id="itemForm">
+        <div class="type-toggle" role="radiogroup" aria-label="Report type">
+          <label>
+            <input type="radio" name="type" value="lost" checked>
+            <span>I lost it</span>
+          </label>
+          <label>
+            <input type="radio" name="type" value="found">
+            <span>I found it</span>
+          </label>
+        </div>
+
+        <label for="name">Item name</label>
+        <input id="name" required maxlength="60"
+          placeholder="Black leather wallet">
+
+        <label for="location">Where?</label>
+        <input id="location" required maxlength="60"
+          placeholder="Library, 2nd floor">
+
+        <label for="date">Date</label>
+        <input id="date" type="date" required>
+
+        <label for="contact">Contact (email or phone)</label>
+        <input id="contact" required maxlength="60"
+          placeholder="you@example.com">
+
+        <label for="desc">Description</label>
+        <textarea id="desc" rows="3" maxlength="200"
+          placeholder="Colour, brand, marks, anything that identifies it"></textarea>
+
+        <label for="photo">Photo (optional)</label>
+        <input id="photo" type="file" accept="image/*">
+
+        <div id="preview" class="preview" hidden>
+          <img id="previewImg" alt="Selected photo preview">
+          <button type="button" id="removePhoto">Remove photo</button>
+        </div>
+
+        <button type="submit">Post item</button>
+      </form>
+    </section>
+
+    <section class="listing">
+      <div class="controls">
+        <input id="search" type="search"
+          placeholder="Search items or locations">
+
+        <div class="filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="lost">Lost</button>
+          <button class="chip" data-filter="found">Found</button>
+        </div>
+      </div>
+
+      <div id="items" class="items" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <button id="logoutBtn" class="logout-btn" type="button">
+    Sign out
+  </button>
+
+  <script src="LnF.js"></script>
+</div>
+
+</body>
+</html>
